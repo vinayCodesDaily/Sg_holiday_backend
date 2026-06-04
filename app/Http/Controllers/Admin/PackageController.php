@@ -155,12 +155,6 @@ foreach ($request->exclusions ?? [] as $item) {
         'item' => $item
     ]);
 }
-foreach ($request->exclusions ?? [] as $item) {
-
-    $package->exclusions()->create([
-        'item' => $item
-    ]);
-}
 foreach ($request->faqs ?? [] as $faq) {
 
     $package->faqs()->create([
@@ -188,43 +182,104 @@ return response()->json([
     ], 500);
 }
 }
-$package = Package::findOrFail($id);
-$validated = $request->validate(
-    $this->validationRules($package->id)
-);
-DB::beginTransaction();
-if ($request->hasFile('thumbnail')) {
+public function update(Request $request, $id)
+{
+    $package = Package::findOrFail($id);
 
-    if ($package->thumbnail) {
+    $validated = $request->validate(
+        $this->validationRules($package->id)
+    );
 
-        Storage::disk('public')
-            ->delete($package->thumbnail);
-    }
+    DB::beginTransaction();
 
-    $package->thumbnail =
-        $request->file('thumbnail')
-            ->store('packages/thumbnails', 'public');
-}
-$package->update([
-    'destination_id' => $validated['destination_id'],
-    'title' => $validated['title'],
-    'slug' => Str::slug($validated['title']),
-    'short_description' => $validated['short_description'] ?? null,
-    'description' => $validated['description'] ?? null,
-    'duration_days' => $validated['duration_days'],
-    'duration_nights' => $validated['duration_nights'],
-    'starting_price' => $validated['starting_price'] ?? 0,
-    'thumbnail' => $package->thumbnail,
-    'featured' => $request->boolean('featured'),
-    'status' => $request->boolean('status', true),
-]);
-$package->tripTypes()
-        ->sync($validated['trip_types']);
+    try {
+
+        if ($request->hasFile('thumbnail')) {
+
+            if ($package->thumbnail) {
+                Storage::disk('public')
+                    ->delete($package->thumbnail);
+            }
+
+            $package->thumbnail =
+                $request->file('thumbnail')
+                    ->store('packages/thumbnails', 'public');
+        }
+
+        $package->update([
+            'destination_id' => $validated['destination_id'],
+            'title' => $validated['title'],
+            'slug' => Str::slug($validated['title']),
+            'short_description' => $validated['short_description'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'duration_days' => $validated['duration_days'],
+            'duration_nights' => $validated['duration_nights'],
+            'starting_price' => $validated['starting_price'] ?? 0,
+            'thumbnail' => $package->thumbnail,
+            'featured' => $request->boolean('featured'),
+            'status' => $request->boolean('status', true),
+        ]);
+
+        $package->tripTypes()
+            ->sync($validated['trip_types']);
+
         $package->itineraries()->delete();
-$package->inclusions()->delete();
-$package->exclusions()->delete();
-$package->faqs()->delete();
-DB::commit();
+        $package->inclusions()->delete();
+        $package->exclusions()->delete();
+        $package->faqs()->delete();
+
+        foreach ($request->itineraries ?? [] as $item) {
+
+            $package->itineraries()->create([
+                'day_number' => $item['day_number'],
+                'title' => $item['title'],
+                'description' => $item['description'],
+            ]);
+        }
+
+        foreach ($request->inclusions ?? [] as $item) {
+
+            $package->inclusions()->create([
+                'item' => $item
+            ]);
+        }
+
+        foreach ($request->exclusions ?? [] as $item) {
+
+            $package->exclusions()->create([
+                'item' => $item
+            ]);
+        }
+
+        foreach ($request->faqs ?? [] as $faq) {
+
+            $package->faqs()->create([
+                'question' => $faq['question'],
+                'answer' => $faq['answer']
+            ]);
+        }
+
+        DB::commit();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Package updated successfully.',
+            'data' => $package->load([
+                'destination',
+                'tripTypes'
+            ])
+        ]);
+
+    } catch (\Exception $e) {
+
+        DB::rollBack();
+
+        return response()->json([
+            'success' => false,
+            'message' => $e->getMessage()
+        ], 500);
+    }
+}
 public function destroy($id)
 {
     $package = Package::with('images')
