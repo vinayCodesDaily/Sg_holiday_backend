@@ -11,16 +11,15 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-
+                $user = User::where('email', $request->email)->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);
         }
-
         $token = $user->createToken('auth_token')->plainTextToken;
-
+        // Ensure role relationship is loaded for front-end role checks
+        $user->load('role');
         return response()->json([
             'user' => $user,
             'token' => $token
@@ -29,7 +28,9 @@ class AuthController extends Controller
 
     public function profile()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user();
+        $user->load('role');
+        return response()->json($user);
     }
 
     public function logout()

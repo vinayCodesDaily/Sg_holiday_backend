@@ -24,7 +24,11 @@ class RoleMiddleware
             ], 403);
         }
 
-        if (!in_array($user->role->slug, $roles)) {
+        // Normalize allowed roles to lowercase for case‑insensitive comparison
+        $allowedRoles = array_map('strtolower', $roles);
+        // Prefer slug, fallback to name (also lowercased)
+        $userRole = strtolower($user->role->slug ?? $user->role->name ?? '');
+        if (!in_array($userRole, $allowedRoles)) {
             return response()->json([
                 'message' => 'Access Denied'
             ], 403);

@@ -85,6 +85,7 @@ Route::get('/profile', [AuthController::class, 'profile'])
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
+// Unprotected dashboard metrics route removed – access controlled via role middleware
 
     /*
     |--------------------------------------------------------------------------
@@ -271,26 +272,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
-    Route::middleware('role:staff')->group(function () {
-
-        Route::get('/admin/dashboard/metrics', [
-            DashboardController::class,
-            'getMetrics',
-        ]);
-
-        Route::get('/admin/enquiries', [
-            AdminPackageController::class,
-            'listEnquiries',
-        ]);
-
-        Route::patch('/admin/enquiries/{id}', [
-            AdminPackageController::class,
-            'updateEnquiryStatus',
-        ]);
-
-        
-
-    });
+// Duplicate admin dashboard metrics route removed (handled by super-admin,admin,manager group)
 
     /*
     |--------------------------------------------------------------------------
