@@ -8,13 +8,14 @@ class Enquiry extends Model
 {
     //
     protected $fillable = [
-        'package_id',
-        'name',
-        'email',
-        'phone',
-        'message',
-        'status'
-    ];
+    'package_id',
+    'name',
+    'email',
+    'phone',
+    'message',
+    'status',
+    'remarks'
+];
     
     
     public function package()

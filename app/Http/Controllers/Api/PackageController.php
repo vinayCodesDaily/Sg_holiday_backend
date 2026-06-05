@@ -11,17 +11,53 @@ class PackageController extends Controller
     // 1. Get all active packages with basic filters (e.g., by destination)
     public function index(Request $request)
     {
-        $query = Package::where('status', true)->with(['destination', 'tripTypes']);
+        $query = Package::with('destination');
 
-        if ($request->has('destination_id')) {
-            $query->where('destination_id', $request->destination_id);
+        // Search by package title
+        if ($request->filled('search')) {
+            $query->where(
+                'title',
+                'like',
+                '%'.$request->search.'%'
+            );
         }
 
-        $packages = $query->latest()->get();
+        // Filter by destination
+        if ($request->filled('destination')) {
+            $query->where(
+                'destination_id',
+                $request->destination
+            );
+        }
+
+        // Filter featured packages
+        if ($request->filled('featured')) {
+            $query->where(
+                'featured',
+                $request->featured
+            );
+        }
+
+        // Filter duration
+        if ($request->filled('duration_days')) {
+            $query->where(
+                'duration_days',
+                $request->duration_days
+            );
+        }
+
+        // Sort by price
+        if ($request->sort == 'price_low') {
+            $query->orderBy('starting_price', 'asc');
+        }
+
+        if ($request->sort == 'price_high') {
+            $query->orderBy('starting_price', 'desc');
+        }
 
         return response()->json([
             'success' => true,
-            'data' => $packages
+            'data' => $query->paginate(12),
         ]);
     }
 
@@ -37,12 +73,12 @@ class PackageController extends Controller
                 'itineraries',
                 'inclusions',
                 'exclusions',
-                'faqs'
+                'faqs',
             ])->firstOrFail(); // Returns 404 automatically if slug is wrong
 
         return response()->json([
             'success' => true,
-            'data' => $package
+            'data' => $package,
         ]);
     }
 }

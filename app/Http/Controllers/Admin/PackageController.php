@@ -333,14 +333,16 @@ public function listEnquiries()
 }
 public function updateEnquiryStatus(Request $request,$id) {
     $validated = $request->validate([
-        'status' => 'required|in:new,contacted,closed'
-    ]);
+    'status' => 'required|in:new,in_progress,resolved,closed',
+    'remarks' => 'nullable|string'
+]);
 
     $enquiry = Enquiry::findOrFail($id);
 
     $enquiry->update([
-        'status' => $validated['status']
-    ]);
+    'status' => $validated['status'],
+    'remarks' => $validated['remarks'] ?? null
+]);
 
     return response()->json([
         'success' => true,

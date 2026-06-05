@@ -1,25 +1,25 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\PackageController;
-use App\Http\Controllers\Api\EnquiryController;
-
-use App\Http\Controllers\Admin\PackageController as AdminPackageController;
+use App\Http\Controllers\Admin\AchievementController;
+use App\Http\Controllers\Admin\ActivityLogController;
+use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CmsPageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DestinationController;
-use App\Http\Controllers\Admin\SourceController;
+use App\Http\Controllers\Admin\HomeAboutController;
+use App\Http\Controllers\Admin\MonthlyDestinationController;
+use App\Http\Controllers\Admin\PackageController as AdminPackageController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\StatisticController;
+use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TripTypeController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\BannerController;
-use App\Http\Controllers\Admin\TestimonialController;
-use App\Http\Controllers\Admin\CmsPageController;
-
-use App\Http\Controllers\Admin\ActivityLogController;
-
-
+use App\Http\Controllers\Admin\WhyChooseUsController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EnquiryController;
+use App\Http\Controllers\Api\HomeController;
+use App\Http\Controllers\Api\PackageController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ use App\Http\Controllers\Admin\ActivityLogController;
 
 Route::get('/test', function () {
     return response()->json([
-        'message' => 'API Working'
+        'message' => 'API Working',
     ]);
 });
 
@@ -43,16 +43,36 @@ Route::get('/destinations/{id}', [DestinationController::class, 'show']);
 
 Route::get('/trip-types', [
     TripTypeController::class,
-    'index'
+    'index',
 ]);
 
 Route::get('/trip-types/{id}', [
     TripTypeController::class,
-    'show'
+    'show',
 ]);
 
 Route::post('/enquiries', [EnquiryController::class, 'store']);
 
+Route::get(
+    '/home/monthly-destinations',
+    [MonthlyDestinationController::class, 'groupedByMonth']
+);
+Route::get('/why-choose-us', [
+    WhyChooseUsController::class,
+    'index',
+]);
+
+Route::get('/achievements', [
+    AchievementController::class,
+    'index',
+]);
+
+Route::get('/home', [HomeController::class, 'index']);
+
+Route::get('/statistics', [
+    StatisticController::class,
+    'index',
+]);
 /*
 |--------------------------------------------------------------------------
 | Protected Routes
@@ -76,76 +96,201 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/admin/dashboard/metrics', [
             DashboardController::class,
-            'getMetrics'
+            'getMetrics',
         ]);
 
         Route::get('/admin/packages', [
             AdminPackageController::class,
-            'index'
+            'index',
         ]);
 
         Route::get('/admin/packages/{id}', [
             AdminPackageController::class,
-            'show'
+            'show',
         ]);
 
         Route::post('/admin/packages', [
             AdminPackageController::class,
-            'store'
+            'store',
         ]);
 
         Route::post('/admin/packages/{id}', [
             AdminPackageController::class,
-            'update'
+            'update',
         ]);
 
         Route::get('/admin/enquiries', [
             AdminPackageController::class,
-            'listEnquiries'
+            'listEnquiries',
         ]);
 
         Route::patch('/admin/enquiries/{id}', [
             AdminPackageController::class,
-            'updateEnquiryStatus'
+            'updateEnquiryStatus',
         ]);
+
+        Route::get('/admin/destinations', [DestinationController::class, 'index']);
+        Route::get('/admin/destinations/{id}', [DestinationController::class, 'show']);
+        Route::post('/admin/destinations', [DestinationController::class, 'store']);
+        Route::post('/admin/destinations/{id}', [DestinationController::class, 'update']);
+
+        Route::get('/admin/trip-types', [
+            TripTypeController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/trip-types/{id}', [
+            TripTypeController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/trip-types', [
+            TripTypeController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/trip-types/{id}', [
+            TripTypeController::class,
+            'update',
+        ]);
+
+        Route::get('/admin/pages', [CmsPageController::class, 'index']);
+        Route::post('/admin/pages', [CmsPageController::class, 'store']);
+        Route::get('/admin/pages/{id}', [CmsPageController::class, 'show']);
+        Route::put('/admin/pages/{id}', [CmsPageController::class, 'update']);
+        Route::delete('/admin/pages/{id}', [CmsPageController::class, 'destroy']);
+
+        Route::get('/admin/monthly-destinations', [
+            MonthlyDestinationController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/monthly-destinations/{id}', [
+            MonthlyDestinationController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/monthly-destinations', [
+            MonthlyDestinationController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/monthly-destinations/{id}', [
+            MonthlyDestinationController::class,
+            'update',
+        ]);
+
+        Route::delete('/admin/monthly-destinations/{id}', [
+            MonthlyDestinationController::class,
+            'destroy',
+        ]);
+
+        Route::get('/admin/why-choose-us', [
+            WhyChooseUsController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/why-choose-us/{id}', [
+            WhyChooseUsController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/why-choose-us', [
+            WhyChooseUsController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/why-choose-us/{id}', [
+            WhyChooseUsController::class,
+            'update',
+        ]);
+
+        Route::delete('/admin/why-choose-us/{id}', [
+            WhyChooseUsController::class,
+            'destroy',
+        ]);
+
+        Route::get('/admin/achievements', [
+            AchievementController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/achievements/{id}', [
+            AchievementController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/achievements', [
+            AchievementController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/achievements/{id}', [
+            AchievementController::class,
+            'update',
+        ]);
+
+        Route::delete('/admin/achievements/{id}', [
+            AchievementController::class,
+            'destroy',
+        ]);
+
+        Route::get('/admin/home-about', [
+            HomeAboutController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/home-about', [
+            HomeAboutController::class,
+            'update',
+        ]);
+        Route::get('/admin/statistics', [
+            StatisticController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/statistics/{id}', [
+            StatisticController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/statistics', [
+            StatisticController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/statistics/{id}', [
+            StatisticController::class,
+            'update',
+        ]);
+
+        Route::delete('/admin/statistics/{id}', [
+            StatisticController::class,
+            'destroy',
+        ]);
+
     });
-    Route::get('/admin/destinations', [DestinationController::class, 'index']);
-    Route::get('/admin/destinations/{id}', [DestinationController::class, 'show']);
-    Route::post('/admin/destinations', [DestinationController::class, 'store']);
-    Route::post('/admin/destinations/{id}', [DestinationController::class, 'update']);
-    Route::delete('/admin/destinations/{id}', [DestinationController::class, 'destroy']);
 
-    Route::get('/admin/trip-types', [
-        TripTypeController::class,
-        'index'
-    ]);
+    Route::middleware('role:staff')->group(function () {
 
-    Route::get('/admin/trip-types/{id}', [
-        TripTypeController::class,
-        'show'
-    ]);
+        Route::get('/admin/dashboard/metrics', [
+            DashboardController::class,
+            'getMetrics',
+        ]);
 
-    Route::post('/admin/trip-types', [
-        TripTypeController::class,
-        'store'
-    ]);
+        Route::get('/admin/enquiries', [
+            AdminPackageController::class,
+            'listEnquiries',
+        ]);
 
-    Route::post('/admin/trip-types/{id}', [
-        TripTypeController::class,
-        'update'
-    ]);
+        Route::patch('/admin/enquiries/{id}', [
+            AdminPackageController::class,
+            'updateEnquiryStatus',
+        ]);
 
-    Route::delete('/admin/trip-types/{id}', [
-        TripTypeController::class,
-        'destroy'
-    ]);
+        
 
-
-    Route::get('/admin/pages', [CmsPageController::class, 'index']);
-    Route::post('/admin/pages', [CmsPageController::class, 'store']);
-    Route::get('/admin/pages/{id}', [CmsPageController::class, 'show']);
-    Route::put('/admin/pages/{id}', [CmsPageController::class, 'update']);
-    Route::delete('/admin/pages/{id}', [CmsPageController::class, 'destroy']);
+    });
 
     /*
     |--------------------------------------------------------------------------
@@ -167,7 +312,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::delete('/admin/packages/{id}', [
             AdminPackageController::class,
-            'destroy'
+            'destroy',
         ]);
 
         Route::get(
@@ -185,15 +330,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/banners/{id}', [BannerController::class, 'update']);
         Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy']);
 
-
         Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
         Route::post('/admin/testimonials', [TestimonialController::class, 'store']);
         Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update']);
         Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy']);
 
-
         Route::get('/admin/activity-logs', [ActivityLogController::class, 'index']);
-    Route::get('/admin/activity-logs/{id}', [ActivityLogController::class, 'show']);
-    Route::delete('/admin/activity-logs/{id}', [ActivityLogController::class, 'destroy']);
+        Route::get('/admin/activity-logs/{id}', [ActivityLogController::class, 'show']);
+        Route::delete('/admin/activity-logs/{id}', [ActivityLogController::class, 'destroy']);
     });
 });
