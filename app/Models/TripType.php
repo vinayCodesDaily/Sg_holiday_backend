@@ -11,6 +11,7 @@ class TripType extends Model
         'slug',
         'icon',
         'description',
+        'image',
         'status'
     ];
     public function packages()

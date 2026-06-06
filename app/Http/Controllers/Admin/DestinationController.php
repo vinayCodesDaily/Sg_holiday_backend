@@ -14,7 +14,7 @@ class DestinationController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Destination::latest()->get()
+            'data' => Destination::withCount('packages')->latest()->get()
         ]);
     }
 

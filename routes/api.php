@@ -53,6 +53,8 @@ Route::get('/trip-types/{id}', [
 
 Route::post('/enquiries', [EnquiryController::class, 'store']);
 
+
+
 Route::get(
     '/home/monthly-destinations',
     [MonthlyDestinationController::class, 'groupedByMonth']
@@ -93,12 +95,24 @@ Route::middleware('auth:sanctum')->group(function () {
     |--------------------------------------------------------------------------
     */
 
-    Route::middleware('role:super-admin,admin,manager')->group(function () {
-
+    Route::middleware('role:super-admin,admin,manager,staff')->group(function () {
         Route::get('/admin/dashboard/metrics', [
             DashboardController::class,
             'getMetrics',
         ]);
+
+        Route::get('/admin/enquiries', [
+            AdminPackageController::class,
+            'listEnquiries',
+        ]);
+
+        Route::patch('/admin/enquiries/{id}', [
+            AdminPackageController::class,
+            'updateEnquiryStatus',
+        ]);
+    });
+
+    Route::middleware('role:super-admin,admin,manager')->group(function () {
 
         Route::get('/admin/packages', [
             AdminPackageController::class,
@@ -118,16 +132,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/packages/{id}', [
             AdminPackageController::class,
             'update',
-        ]);
-
-        Route::get('/admin/enquiries', [
-            AdminPackageController::class,
-            'listEnquiries',
-        ]);
-
-        Route::patch('/admin/enquiries/{id}', [
-            AdminPackageController::class,
-            'updateEnquiryStatus',
         ]);
 
         Route::get('/admin/destinations', [DestinationController::class, 'index']);
@@ -159,7 +163,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/pages', [CmsPageController::class, 'store']);
         Route::get('/admin/pages/{id}', [CmsPageController::class, 'show']);
         Route::put('/admin/pages/{id}', [CmsPageController::class, 'update']);
-        Route::delete('/admin/pages/{id}', [CmsPageController::class, 'destroy']);
+        
 
         Route::get('/admin/monthly-destinations', [
             MonthlyDestinationController::class,
@@ -181,10 +185,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'update',
         ]);
 
-        Route::delete('/admin/monthly-destinations/{id}', [
-            MonthlyDestinationController::class,
-            'destroy',
-        ]);
+        
 
         Route::get('/admin/why-choose-us', [
             WhyChooseUsController::class,
@@ -231,10 +232,7 @@ Route::middleware('auth:sanctum')->group(function () {
             'update',
         ]);
 
-        Route::delete('/admin/achievements/{id}', [
-            AchievementController::class,
-            'destroy',
-        ]);
+        
 
         Route::get('/admin/home-about', [
             HomeAboutController::class,
@@ -265,10 +263,24 @@ Route::middleware('auth:sanctum')->group(function () {
             'update',
         ]);
 
-        Route::delete('/admin/statistics/{id}', [
-            StatisticController::class,
-            'destroy',
-        ]);
+         Route::get('/admin/banners', [BannerController::class, 'index']);
+        Route::post('/admin/banners', [BannerController::class, 'store']);
+        Route::post('/admin/banners/{id}', [BannerController::class, 'update']);
+
+         Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
+        Route::post('/admin/testimonials', [TestimonialController::class, 'store']);
+        Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update']);
+        
+
+        Route::get(
+            '/admin/settings',
+            [SettingController::class, 'show']
+        );
+
+        Route::post(
+            '/admin/settings',
+            [SettingController::class, 'update']
+        );
 
     });
 
@@ -296,25 +308,14 @@ Route::middleware('auth:sanctum')->group(function () {
             AdminPackageController::class,
             'destroy',
         ]);
+        Route::delete('/admin/destinations/{id}', [DestinationController::class, 'destroy']);
 
-        Route::get(
-            '/admin/settings',
-            [SettingController::class, 'show']
-        );
+        
 
-        Route::post(
-            '/admin/settings',
-            [SettingController::class, 'update']
-        );
-
-        Route::get('/admin/banners', [BannerController::class, 'index']);
-        Route::post('/admin/banners', [BannerController::class, 'store']);
-        Route::post('/admin/banners/{id}', [BannerController::class, 'update']);
+       
         Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy']);
 
-        Route::get('/admin/testimonials', [TestimonialController::class, 'index']);
-        Route::post('/admin/testimonials', [TestimonialController::class, 'store']);
-        Route::put('/admin/testimonials/{id}', [TestimonialController::class, 'update']);
+       
         Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy']);
 
         Route::get('/admin/activity-logs', [ActivityLogController::class, 'index']);

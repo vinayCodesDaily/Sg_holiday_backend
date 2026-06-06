@@ -10,31 +10,57 @@ class StatisticController extends Controller
 {
     public function index()
     {
-        return response()->json(
-            Statistic::orderBy('display_order')->get()
-        );
+        return response()->json([
+            'success' => true,
+            'data' => Statistic::orderBy('display_order')->get()
+        ]);
     }
 
     public function store(Request $request)
     {
-        $statistic = Statistic::create($request->all());
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'value' => 'required|string|max:255',
+        ]);
+
+        $statistic = Statistic::create([
+            'label'         => $request->label,
+            'value'         => $request->value,
+            'icon'          => $request->icon,
+            'display_order' => $request->display_order ?? 0,
+            'status'        => $request->boolean('status', true),
+        ]);
 
         return response()->json([
             'success' => true,
             'data' => $statistic
-        ]);
+        ], 201);
     }
 
     public function show($id)
     {
-        return Statistic::findOrFail($id);
+        return response()->json([
+            'success' => true,
+            'data'    => Statistic::findOrFail($id)
+        ]);
     }
 
     public function update(Request $request, $id)
     {
         $statistic = Statistic::findOrFail($id);
 
-        $statistic->update($request->all());
+        $request->validate([
+            'label' => 'required|string|max:255',
+            'value' => 'required|string|max:255',
+        ]);
+
+        $statistic->update([
+            'label'         => $request->label,
+            'value'         => $request->value,
+            'icon'          => $request->icon,
+            'display_order' => $request->display_order ?? $statistic->display_order,
+            'status'        => $request->boolean('status', $statistic->status),
+        ]);
 
         return response()->json([
             'success' => true,

@@ -11,7 +11,7 @@ class PackageController extends Controller
     // 1. Get all active packages with basic filters (e.g., by destination)
     public function index(Request $request)
     {
-        $query = Package::with('destination');
+        $query = Package::with(['destination', 'tripTypes']);
 
         // Search by package title
         if ($request->filled('search')) {
@@ -28,6 +28,13 @@ class PackageController extends Controller
                 'destination_id',
                 $request->destination
             );
+        }
+
+        // Filter by trip_type
+        if ($request->filled('trip_type')) {
+            $query->whereHas('tripTypes', function($q) use ($request) {
+                $q->where('trip_types.id', $request->trip_type);
+            });
         }
 
         // Filter featured packages

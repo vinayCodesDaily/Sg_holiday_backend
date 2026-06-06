@@ -84,6 +84,13 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
+        if ($user->role && $user->role->slug === 'super-admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Super Admin user cannot be deleted.'
+            ], 403);
+        }
+
         $user->delete();
 
         return response()->json([

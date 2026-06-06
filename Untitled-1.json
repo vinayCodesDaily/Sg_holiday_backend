@@ -1,0 +1,960 @@
+{
+  "name": "sg-holidays-backend",
+  "path": "c:\\xampp\\htdocs\\sg-holidays-backend",
+  "type": "directory",
+  "children": [
+    {
+      "name": "app",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "Http",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "Controllers",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": "Admin",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "AchievementController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "ActivityLogController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "BannerController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "CmsPageController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "DashboardController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "DestinationController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "HomeAboutController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "MonthlyDestinationController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "PackageController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "SettingController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "StatisticController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "TestimonialController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "TripTypeController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "UserController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "WhyChooseUsController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    }
+                  ]
+                },
+                {
+                  "name": "Api",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "AuthController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "EnquiryController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "HomeController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    },
+                    {
+                      "name": "PackageController.php",
+                      "type": "file",
+                      "icon": "📄"
+                    }
+                  ]
+                },
+                {
+                  "name": "Controller.php",
+                  "type": "file",
+                  "icon": "📄"
+                }
+              ]
+            },
+            {
+              "name": "Middleware",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": "CheckRole.php",
+                  "type": "file",
+                  "icon": "📄"
+                },
+                {
+                  "name": "RoleMiddleware.php",
+                  "type": "file",
+                  "icon": "📄"
+                }
+              ]
+            },
+            {
+              "name": "Requests",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": "LoginRequest.php",
+                  "type": "file",
+                  "icon": "📄"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Models",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "Achievement.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "ActivityLog.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Banner.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "CmsPage.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Destination.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Enquiry.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "EnquiryRemark.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "HomeAbout.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Itinerary.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "MonthlyDestination.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Package.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "PackageExclusion.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "PackageFaq.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "PackageImage.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "PackageInclusion.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Role.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Setting.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Statistic.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "Testimonial.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "TripType.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "User.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "WhyChooseUs.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": "Providers",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "AppServiceProvider.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "bootstrap",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "app.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "providers.php",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": "config",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "app.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "auth.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "cache.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "database.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "filesystems.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "logging.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "mail.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "queue.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "sanctum.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "services.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "session.php",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": "database",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "factories",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "UserFactory.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": "migrations",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "0000_01_01_000000_create_roles_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "0001_01_01_000000_create_users_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "0001_01_01_000001_create_cache_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "0001_01_01_000002_create_jobs_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091211_create_personal_access_tokens_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091957_create_destinations_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091958_create_packages_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091958_create_trip_types_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091959_create_itineraries_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_091959_create_package_images_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092000_create_package_exclusions_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092000_create_package_inclusions_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092001_create_enquiries_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092001_create_enquiry_remarks_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092001_create_package_faqs_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_092002_create_banners_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_03_101110_create_package_trip_type_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_04_094655_create_settings_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_04_111210_create_testimonials_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_04_115637_create_cms_pages_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_04_130411_create_activity_logs_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_044303_create_monthly_destinations_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_050428_create_why_choose_us_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_051714_create_achievements_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_052950_create_home_abouts_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_062401_add_remarks_to_enquiries_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_074531_create_statistics_table.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "2026_06_05_090315_add_trip_type_id_to_packages_table.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": "seeders",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "AdminUserSeeder.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "DatabaseSeeder.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "DestinationSeeder.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "RoleSeeder.php",
+              "type": "file",
+              "icon": "📄"
+            },
+            {
+              "name": "TripTypeSeeder.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": ".gitignore",
+          "type": "file",
+          "icon": "📁"
+        },
+        {
+          "name": "database.sqlite",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": "public",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": ".htaccess",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "favicon.ico",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "index.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "robots.txt",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": "resources",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "css",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "app.css",
+              "type": "file",
+              "icon": "🎨"
+            }
+          ]
+        },
+        {
+          "name": "js",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "app.js",
+              "type": "file",
+              "icon": "📜"
+            },
+            {
+              "name": "bootstrap.js",
+              "type": "file",
+              "icon": "📜"
+            }
+          ]
+        },
+        {
+          "name": "views",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "welcome.blade.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "routes",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "api.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "console.php",
+          "type": "file",
+          "icon": "📄"
+        },
+        {
+          "name": "web.php",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": "storage",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "app",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "public",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": "achievements",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "dLqGY0OsCV4623W1T6MCCILnBqYbNvQmjj82j95f.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    },
+                    {
+                      "name": "yLcmt18VfKHDCR0pRkZxKMlGojvzq4t73DDV9pQX.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    }
+                  ]
+                },
+                {
+                  "name": "banners",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "1OYHk1wH4vNku3E3yNN8Sn1NAbd40nICVvfYO76S.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    },
+                    {
+                      "name": "ED7qkBK06rz2x88iI67IneAo2caEgbXEMjfKpVb7.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    },
+                    {
+                      "name": "t19XJCWi3tAeJPvb7wMEDDVoH33r7cSRJPEZthdl.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    }
+                  ]
+                },
+                {
+                  "name": "destinations",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "QTIb4xuQqZ0wWjUrLNvqgdxqrzhjaKObBkgeLTCk.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    },
+                    {
+                      "name": "TwfwXmC5cNZKUqF0BuKNQXVSvj7SiA07xfHY5DxV.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    }
+                  ]
+                },
+                {
+                  "name": "settings",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "logo",
+                      "type": "folder",
+                      "icon": "📁",
+                      "children": [
+                        {
+                          "name": "2t1NOXdIFIUcZ94wbtaSgyReziS2cxmOjfTZDjL1.png",
+                          "type": "file",
+                          "icon": "🖼️"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "testimonials",
+                  "type": "folder",
+                  "icon": "📁",
+                  "children": [
+                    {
+                      "name": "tendSJQub1f7jNETWm4CNxdk6KlgJ719n30WO3t7.png",
+                      "type": "file",
+                      "icon": "🖼️"
+                    }
+                  ]
+                },
+                {
+                  "name": ".gitignore",
+                  "type": "file",
+                  "icon": "📁"
+                }
+              ]
+            },
+            {
+              "name": ".gitignore",
+              "type": "file",
+              "icon": "📁"
+            }
+          ]
+        },
+        {
+          "name": "framework",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "sessions",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": ".gitignore",
+                  "type": "file",
+                  "icon": "📁"
+                }
+              ]
+            },
+            {
+              "name": "testing",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": ".gitignore",
+                  "type": "file",
+                  "icon": "📁"
+                }
+              ]
+            },
+            {
+              "name": "views",
+              "type": "folder",
+              "icon": "📁",
+              "children": [
+                {
+                  "name": ".gitignore",
+                  "type": "file",
+                  "icon": "📁"
+                }
+              ]
+            },
+            {
+              "name": ".gitignore",
+              "type": "file",
+              "icon": "📁"
+            }
+          ]
+        },
+        {
+          "name": "logs",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": ".gitignore",
+              "type": "file",
+              "icon": "📁"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "tests",
+      "type": "folder",
+      "icon": "📁",
+      "children": [
+        {
+          "name": "Feature",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "ExampleTest.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": "Unit",
+          "type": "folder",
+          "icon": "📁",
+          "children": [
+            {
+              "name": "ExampleTest.php",
+              "type": "file",
+              "icon": "📄"
+            }
+          ]
+        },
+        {
+          "name": "TestCase.php",
+          "type": "file",
+          "icon": "📄"
+        }
+      ]
+    },
+    {
+      "name": ".editorconfig",
+      "type": "file",
+      "icon": "📄"
+    },
+    {
+      "name": ".env.example",
+      "type": "file",
+      "icon": "📄"
+    },
+    {
+      "name": ".gitattributes",
+      "type": "file",
+      "icon": "📁"
+    },
+    {
+      "name": ".gitignore",
+      "type": "file",
+      "icon": "📁"
+    },
+    {
+      "name": "README.md",
+      "type": "file",
+      "icon": "📝"
+    },
+    {
+      "name": "artisan",
+      "type": "file",
+      "icon": "📄"
+    },
+    {
+      "name": "composer.json",
+      "type": "file",
+      "icon": "⚙️"
+    },
+    {
+      "name": "images.png",
+      "type": "file",
+      "icon": "🖼️"
+    },
+    {
+      "name": "package.json",
+      "type": "file",
+      "icon": "📦"
+    },
+    {
+      "name": "phpunit.xml",
+      "type": "file",
+      "icon": "📄"
+    },
+    {
+      "name": "vite.config.js",
+      "type": "file",
+      "icon": "📜"
+    }
+  ],
+  "metadata": {
+    "generated": "2026-06-05T10:21:47.732Z",
+    "generator": "FileTree Pro Extension",
+    "version": "0.2.0",
+    "showIcons": true,
+    "maxDepth": 10
+  }
+}
