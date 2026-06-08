@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\Package;
-use App\Models\Enquiry;
-use App\Models\Destination;
-use App\Models\TripType;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
+use App\Models\Destination;
+use App\Models\Enquiry;
+use App\Models\Package;
+use App\Models\TripType;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,11 +18,11 @@ class DashboardController extends Controller
     {
         try {
             // 1. Core Summary Counter Cards
-            $totalPackages     = Package::count();
-            $activePackages    = Package::where('status', true)->count();
-            $featuredPackages  = Package::where('featured', true)->count();
+            $totalPackages = Package::count();
+            $activePackages = Package::where('status', true)->count();
+            $featuredPackages = Package::where('featured', true)->count();
             $totalDestinations = Destination::count();
-            $totalEnquiries    = Enquiry::count();
+            $totalEnquiries = Enquiry::count();
 
             // 2. Enquiry Status Breakdown (For distribution pie charts)
             $enquiryStatusCounts = Enquiry::select('status', DB::raw('count(*) as total'))
@@ -34,9 +33,11 @@ class DashboardController extends Controller
 
             // Ensure all statuses exist in response map even if count is zero
             $enquiryStats = [
-                'new'       => $enquiryStatusCounts['new'] ?? 0,
+                'new' => $enquiryStatusCounts['new'] ?? 0,
+                'in_progress' => $enquiryStatusCounts['in_progress'] ?? 0,
                 'contacted' => $enquiryStatusCounts['contacted'] ?? 0,
-                'closed'    => $enquiryStatusCounts['closed'] ?? 0,
+                'resolved' => $enquiryStatusCounts['resolved'] ?? 0,
+                'closed' => $enquiryStatusCounts['closed'] ?? 0,
             ];
 
             // 3. Top Performing Hot Destinations (Most packages associated)
@@ -46,8 +47,8 @@ class DashboardController extends Controller
                 ->get()
                 ->map(function ($dest) {
                     return [
-                        'name'           => $dest->name,
-                        'packages_count' => $dest->packages_count
+                        'name' => $dest->name,
+                        'packages_count' => $dest->packages_count,
                     ];
                 });
 
@@ -58,8 +59,8 @@ class DashboardController extends Controller
                 ->get()
                 ->map(function ($type) {
                     return [
-                        'category'       => $type->name,
-                        'packages_count' => $type->packages_count
+                        'category' => $type->name,
+                        'packages_count' => $type->packages_count,
                     ];
                 });
 
@@ -70,40 +71,38 @@ class DashboardController extends Controller
                 ->get()
                 ->map(function ($enq) {
                     return [
-                        'id'           => $enq->id,
-                        'customer'     => $enq->name,
-                        'phone'        => $enq->phone,
-                        'package'      => $enq->package ? $enq->package->title : 'General Inquiry',
-                        'status'       => $enq->status,
-                        'submitted_at' => $enq->created_at->diffForHumans()
+                        'id' => $enq->id,
+                        'customer' => $enq->name,
+                        'phone' => $enq->phone,
+                        'package' => $enq->package ? $enq->package->title : 'General Inquiry',
+                        'status' => $enq->status,
+                        'submitted_at' => $enq->created_at->diffForHumans(),
                     ];
                 });
 
             return response()->json([
                 'success' => true,
-                'data'    => [
+                'data' => [
                     'counters' => [
-                        'total_packages'     => $totalPackages,
-                        'active_packages'    => $activePackages,
-                        'featured_packages'  => $featuredPackages,
+                        'total_packages' => $totalPackages,
+                        'active_packages' => $activePackages,
+                        'featured_packages' => $featuredPackages,
                         'total_destinations' => $totalDestinations,
-                        'total_enquiries'    => $totalEnquiries,
+                        'total_enquiries' => $totalEnquiries,
                     ],
-                    'enquiry_distribution'  => $enquiryStats,
-                    'popular_destinations'  => $popularDestinations,
-                    'trip_type_distribution'=> $tripTypeVolume,
-                    'recent_enquiries'      => $recentEnquiries
-                ]
+                    'enquiry_distribution' => $enquiryStats,
+                    'popular_destinations' => $popularDestinations,
+                    'trip_type_distribution' => $tripTypeVolume,
+                    'recent_enquiries' => $recentEnquiries,
+                ],
             ], 200);
 
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => 'Failed to generate metrics layout data telemetry.',
-                'error'   => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
 }
-
-

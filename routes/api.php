@@ -282,6 +282,11 @@ Route::middleware('auth:sanctum')->group(function () {
             [SettingController::class, 'update']
         );
 
+        Route::delete('/admin/achievements/{id}', [
+            AchievementController::class,
+            'destroy',
+        ]);
+
     });
 
 // Duplicate admin dashboard metrics route removed (handled by super-admin,admin,manager group)
@@ -308,6 +313,11 @@ Route::middleware('auth:sanctum')->group(function () {
             AdminPackageController::class,
             'destroy',
         ]);
+
+        Route::delete('/admin/trip-types/{id}', [
+            TripTypeController::class,
+            'destroy',
+        ]);
         Route::delete('/admin/destinations/{id}', [DestinationController::class, 'destroy']);
 
         
@@ -317,6 +327,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
        
         Route::delete('/admin/testimonials/{id}', [TestimonialController::class, 'destroy']);
+
+        
 
         Route::get('/admin/activity-logs', [ActivityLogController::class, 'index']);
         Route::get('/admin/activity-logs/{id}', [ActivityLogController::class, 'show']);

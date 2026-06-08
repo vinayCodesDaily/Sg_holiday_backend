@@ -12,9 +12,19 @@ class DestinationController extends Controller
 {
     public function index()
     {
+        $data = Destination::withCount('packages')->latest()->get();
+
+        $data->transform(function ($item) {
+            $item->image = $item->image
+                ? asset('storage/'.$item->image)
+                : null;
+
+            return $item;
+        });
+
         return response()->json([
             'success' => true,
-            'data' => Destination::withCount('packages')->latest()->get()
+            'data' => $data,
         ]);
     }
 
@@ -24,7 +34,7 @@ class DestinationController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $destination
+            'data' => $destination,
         ]);
     }
 
@@ -34,7 +44,7 @@ class DestinationController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|boolean'
+            'status' => 'nullable|boolean',
         ]);
 
         $imagePath = null;
@@ -50,13 +60,13 @@ class DestinationController extends Controller
             'slug' => Str::slug($validated['name']),
             'description' => $validated['description'] ?? null,
             'image' => $imagePath,
-            'status' => $request->boolean('status', true)
+            'status' => $request->boolean('status', true),
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Destination created successfully',
-            'data' => $destination
+            'data' => $destination,
         ], 201);
     }
 
@@ -68,7 +78,7 @@ class DestinationController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|boolean'
+            'status' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('image')) {
@@ -87,13 +97,13 @@ class DestinationController extends Controller
             'slug' => Str::slug($validated['name']),
             'description' => $validated['description'] ?? null,
             'image' => $destination->image,
-            'status' => $request->boolean('status', true)
+            'status' => $request->boolean('status', true),
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Destination updated successfully',
-            'data' => $destination
+            'data' => $destination,
         ]);
     }
 
@@ -109,7 +119,7 @@ class DestinationController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Destination deleted successfully'
+            'message' => 'Destination deleted successfully',
         ]);
     }
 }
