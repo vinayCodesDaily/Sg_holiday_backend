@@ -26,13 +26,6 @@ class AuthController extends Controller
         ]);
     }
 
-    public function profile()
-    {
-        $user = auth()->user();
-        $user->load('role');
-        return response()->json($user);
-    }
-
     public function logout()
     {
         auth()->user()->tokens()->delete();
