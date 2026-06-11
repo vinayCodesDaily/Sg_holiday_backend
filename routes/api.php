@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\TripTypeController;
+use App\Http\Controllers\Admin\ActivityController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WhyChooseUsController;
@@ -55,6 +56,16 @@ Route::get('/trip-types', [
 
 Route::get('/trip-types/{id}', [
     TripTypeController::class,
+    'show',
+]);
+
+Route::get('/activities', [
+    ActivityController::class,
+    'index',
+]);
+
+Route::get('/activities/{id}', [
+    ActivityController::class,
     'show',
 ]);
 
@@ -165,6 +176,26 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/admin/trip-types/{id}', [
             TripTypeController::class,
+            'update',
+        ]);
+
+        Route::get('/admin/activities', [
+            ActivityController::class,
+            'index',
+        ]);
+
+        Route::get('/admin/activities/{id}', [
+            ActivityController::class,
+            'show',
+        ]);
+
+        Route::post('/admin/activities', [
+            ActivityController::class,
+            'store',
+        ]);
+
+        Route::post('/admin/activities/{id}', [
+            ActivityController::class,
             'update',
         ]);
 
@@ -328,6 +359,11 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::delete('/admin/trip-types/{id}', [
             TripTypeController::class,
+            'destroy',
+        ]);
+
+        Route::delete('/admin/activities/{id}', [
+            ActivityController::class,
             'destroy',
         ]);
         Route::delete('/admin/destinations/{id}', [DestinationController::class, 'destroy']);

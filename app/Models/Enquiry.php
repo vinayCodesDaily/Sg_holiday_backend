@@ -12,10 +12,17 @@ class Enquiry extends Model
     'name',
     'email',
     'phone',
+    'destination',
+    'travel_date',
+    'number_of_persons',
     'message',
     'status',
     'remarks'
 ];
+
+    protected $casts = [
+        'travel_date' => 'date',
+    ];
     
     
     public function package()

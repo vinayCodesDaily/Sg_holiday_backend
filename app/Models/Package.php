@@ -10,6 +10,7 @@ use App\Models\Itinerary;
 use App\Models\PackageInclusion;
 use App\Models\PackageExclusion;
 use App\Models\PackageFaq;
+use App\Models\PackageHighlight;
 use App\Models\Enquiry;
 use App\Models\User;
 
@@ -23,8 +24,14 @@ class Package extends Model
         'slug',
         'short_description',
         'description',
+        'transportation',
+        'accommodation',
+        'best_season',
+        'meals',
+        'main_attractions',
         'duration_days',
         'duration_nights',
+        'max_persons',
         'starting_price',
         'thumbnail',
         'featured',
@@ -67,6 +74,11 @@ class Package extends Model
     public function exclusions()
     {
         return $this->hasMany(PackageExclusion::class);
+    }
+
+    public function highlights()
+    {
+        return $this->hasMany(PackageHighlight::class);
     }
 
     public function faqs()

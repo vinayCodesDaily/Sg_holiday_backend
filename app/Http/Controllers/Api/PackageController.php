@@ -80,6 +80,7 @@ class PackageController extends Controller
                 'itineraries',
                 'inclusions',
                 'exclusions',
+                'highlights',
                 'faqs',
             ])->firstOrFail(); // Returns 404 automatically if slug is wrong
 

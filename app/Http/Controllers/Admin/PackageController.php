@@ -34,6 +34,7 @@ public function show($id)
         'itineraries',
         'inclusions',
         'exclusions',
+        'highlights',
         'faqs'
     ])->findOrFail($id);
 
@@ -52,8 +53,15 @@ private function validationRules($id = null)
         'short_description' => 'nullable|string',
         'description' => 'nullable|string',
 
+        'transportation' => 'nullable|string',
+        'accommodation' => 'nullable|string',
+        'best_season' => 'nullable|string',
+        'meals' => 'nullable|string',
+        'main_attractions' => 'nullable|string',
+
         'duration_days' => 'required|integer|min:0',
         'duration_nights' => 'required|integer|min:0',
+        'max_persons' => 'required|integer|min:1|max:100',
 
         'starting_price' => 'nullable|numeric|min:0',
 
@@ -78,6 +86,9 @@ private function validationRules($id = null)
 
         'exclusions' => 'nullable|array',
         'exclusions.*' => 'string|max:255',
+
+        'highlights' => 'nullable|array',
+        'highlights.*' => 'string|max:500',
 
         'faqs' => 'nullable|array',
         'faqs.*.question' => 'required|string|max:255',
@@ -108,8 +119,15 @@ if ($request->hasFile('thumbnail')) {
     'short_description' => $validated['short_description'] ?? null,
     'description' => $validated['description'] ?? null,
 
+    'transportation' => $validated['transportation'] ?? null,
+    'accommodation' => $validated['accommodation'] ?? null,
+    'best_season' => $validated['best_season'] ?? null,
+    'meals' => $validated['meals'] ?? null,
+    'main_attractions' => $validated['main_attractions'] ?? null,
+
     'duration_days' => $validated['duration_days'],
     'duration_nights' => $validated['duration_nights'],
+    'max_persons' => $validated['max_persons'],
 
     'starting_price' => $validated['starting_price'] ?? 0,
 
@@ -152,6 +170,12 @@ foreach ($request->inclusions ?? [] as $item) {
 foreach ($request->exclusions ?? [] as $item) {
 
     $package->exclusions()->create([
+        'item' => $item
+    ]);
+}
+foreach ($request->highlights ?? [] as $item) {
+
+    $package->highlights()->create([
         'item' => $item
     ]);
 }
@@ -212,8 +236,14 @@ public function update(Request $request, $id)
             'slug' => Str::slug($validated['title']),
             'short_description' => $validated['short_description'] ?? null,
             'description' => $validated['description'] ?? null,
+            'transportation' => $validated['transportation'] ?? null,
+            'accommodation' => $validated['accommodation'] ?? null,
+            'best_season' => $validated['best_season'] ?? null,
+            'meals' => $validated['meals'] ?? null,
+            'main_attractions' => $validated['main_attractions'] ?? null,
             'duration_days' => $validated['duration_days'],
             'duration_nights' => $validated['duration_nights'],
+            'max_persons' => $validated['max_persons'],
             'starting_price' => $validated['starting_price'] ?? 0,
             'thumbnail' => $package->thumbnail,
             'featured' => $request->boolean('featured'),
@@ -226,6 +256,7 @@ public function update(Request $request, $id)
         $package->itineraries()->delete();
         $package->inclusions()->delete();
         $package->exclusions()->delete();
+        $package->highlights()->delete();
         $package->faqs()->delete();
 
         foreach ($request->itineraries ?? [] as $item) {
@@ -247,6 +278,13 @@ public function update(Request $request, $id)
         foreach ($request->exclusions ?? [] as $item) {
 
             $package->exclusions()->create([
+                'item' => $item
+            ]);
+        }
+
+        foreach ($request->highlights ?? [] as $item) {
+
+            $package->highlights()->create([
                 'item' => $item
             ]);
         }
@@ -322,7 +360,7 @@ public function destroy($id)
 }
 public function listEnquiries()
 {
-    $enquiries = Enquiry::with('package:id,title')
+    $enquiries = Enquiry::with(['package:id,title', 'package.destination:id,name'])
         ->latest()
         ->get();
 

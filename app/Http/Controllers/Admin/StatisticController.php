@@ -12,28 +12,28 @@ class StatisticController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Statistic::orderBy('display_order')->get()
+            'data' => Statistic::orderBy('display_order')->get(),
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'label' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'value' => 'required|string|max:255',
         ]);
 
         $statistic = Statistic::create([
-            'label'         => $request->label,
-            'value'         => $request->value,
-            'icon'          => $request->icon,
+            'title' => $request->title,
+            'value' => $request->value,
+            'icon' => $request->icon,
             'display_order' => $request->display_order ?? 0,
-            'status'        => $request->boolean('status', true),
+            'status' => $request->boolean('status', true),
         ]);
 
         return response()->json([
             'success' => true,
-            'data' => $statistic
+            'data' => $statistic,
         ], 201);
     }
 
@@ -41,30 +41,29 @@ class StatisticController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data'    => Statistic::findOrFail($id)
+            'data' => Statistic::findOrFail($id),
         ]);
     }
 
     public function update(Request $request, $id)
     {
-        $statistic = Statistic::findOrFail($id);
-
         $request->validate([
-            'label' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'value' => 'required|string|max:255',
         ]);
 
+        $statistic = Statistic::findOrFail($id);
         $statistic->update([
-            'label'         => $request->label,
-            'value'         => $request->value,
-            'icon'          => $request->icon,
+            'title' => $request->title,
+            'value' => $request->value,
+            'icon' => $request->icon,
             'display_order' => $request->display_order ?? $statistic->display_order,
-            'status'        => $request->boolean('status', $statistic->status),
+            'status' => $request->boolean('status', $statistic->status),
         ]);
 
         return response()->json([
             'success' => true,
-            'data' => $statistic
+            'data' => $statistic,
         ]);
     }
 
@@ -74,7 +73,7 @@ class StatisticController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => 'Deleted Successfully'
+            'message' => 'Deleted Successfully',
         ]);
     }
 }

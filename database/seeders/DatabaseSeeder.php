@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DestinationSeeder::class,
             TripTypeSeeder::class,
             AdminUserSeeder::class,
+            ActivitySeeder::class,
         ]);
 
         // User::factory()->create([

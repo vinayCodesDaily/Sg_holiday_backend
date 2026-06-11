@@ -56,7 +56,31 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
     public function packages()
-{
-    return $this->hasMany(Package::class, 'created_by');
-}
+    {
+        return $this->hasMany(Package::class, 'created_by');
+    }
+
+    public static function adminNotificationEmails(): array
+    {
+        $emails = static::query()
+            ->where('status', true)
+            ->whereNotNull('email')
+            ->whereHas('role', fn ($query) => $query->whereIn('slug', [
+                'super-admin',
+                'admin',
+                'manager',
+                'staff',
+            ]))
+            ->pluck('email')
+            ->unique()
+            ->values()
+            ->all();
+
+        $fallback = config('mail.admin_address');
+        if ($fallback) {
+            $emails = array_values(array_unique([...$emails, $fallback]));
+        }
+
+        return $emails;
+    }
 }
