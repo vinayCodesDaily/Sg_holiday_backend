@@ -8,10 +8,9 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    // 1. Get all active packages with basic filters (e.g., by destination)
     public function index(Request $request)
     {
-        $query = Package::with(['destination', 'tripTypes']);
+        $query = Package::with(['destination', 'tripTypes', 'activities']);
 
         // Search by package title
         if ($request->filled('search')) {
@@ -34,6 +33,13 @@ class PackageController extends Controller
         if ($request->filled('trip_type')) {
             $query->whereHas('tripTypes', function($q) use ($request) {
                 $q->where('trip_types.id', $request->trip_type);
+            });
+        }
+
+        // Filter by activity
+        if ($request->filled('activity')) {
+            $query->whereHas('activities', function($q) use ($request) {
+                $q->where('activities.id', $request->activity);
             });
         }
 
@@ -76,6 +82,7 @@ class PackageController extends Controller
             ->with([
                 'destination',
                 'tripTypes',
+                'activities',
                 'images',
                 'itineraries',
                 'inclusions',

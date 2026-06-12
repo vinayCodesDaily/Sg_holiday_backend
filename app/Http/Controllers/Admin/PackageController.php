@@ -17,7 +17,8 @@ class PackageController extends Controller
 {
     $packages = Package::with([
         'destination',
-        'tripTypes'
+        'tripTypes',
+        'activities'
     ])->latest()->get();
 
     return response()->json([
@@ -30,6 +31,7 @@ public function show($id)
     $package = Package::with([
         'destination',
         'tripTypes',
+        'activities',
         'images',
         'itineraries',
         'inclusions',
@@ -93,6 +95,8 @@ private function validationRules($id = null)
         'faqs' => 'nullable|array',
         'faqs.*.question' => 'required|string|max:255',
         'faqs.*.answer' => 'required|string',
+        'activities' => 'nullable|array',
+        'activities.*' => 'exists:activities,id',
     ];
 }
 public function store(Request $request)
@@ -138,6 +142,11 @@ if ($request->hasFile('thumbnail')) {
 ]);
 $package->tripTypes()
         ->attach($validated['trip_types']);
+
+        if (!empty($validated['activities'])) {
+            $package->activities()->attach($validated['activities']);
+        }
+
         if ($request->hasFile('images')) {
 
     foreach ($request->file('images') as $index => $image) {
@@ -193,7 +202,8 @@ return response()->json([
     'message' => 'Package created successfully.',
     'data' => $package->load([
         'destination',
-        'tripTypes'
+        'tripTypes',
+        'activities'
     ])
 ], 201);
 } catch (\Exception $e) {
@@ -253,6 +263,9 @@ public function update(Request $request, $id)
         $package->tripTypes()
             ->sync($validated['trip_types']);
 
+        $package->activities()
+            ->sync($request->input('activities', []));
+
         $package->itineraries()->delete();
         $package->inclusions()->delete();
         $package->exclusions()->delete();
@@ -304,7 +317,8 @@ public function update(Request $request, $id)
             'message' => 'Package updated successfully.',
             'data' => $package->load([
                 'destination',
-                'tripTypes'
+                'tripTypes',
+                'activities'
             ])
         ]);
 

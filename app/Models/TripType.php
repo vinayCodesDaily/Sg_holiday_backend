@@ -12,7 +12,8 @@ class TripType extends Model
         'icon',
         'description',
         'image',
-        'status'
+        'status',
+        'is_featured'
     ];
     public function packages()
     {

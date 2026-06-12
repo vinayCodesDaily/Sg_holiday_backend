@@ -33,7 +33,8 @@ class TripTypeController extends Controller
             'icon' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|boolean'
+            'status' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean'
         ]);
 
         $imagePath = null;
@@ -47,7 +48,8 @@ class TripTypeController extends Controller
             'icon' => $validated['icon'] ?? null,
             'description' => $validated['description'] ?? null,
             'image' => $imagePath,
-            'status' => $request->boolean('status', true)
+            'status' => $request->boolean('status', true),
+            'is_featured' => $request->boolean('is_featured', false)
         ]);
 
         return response()->json([
@@ -66,7 +68,8 @@ class TripTypeController extends Controller
             'icon' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
-            'status' => 'nullable|boolean'
+            'status' => 'nullable|boolean',
+            'is_featured' => 'nullable|boolean'
         ]);
 
         if ($request->hasFile('image')) {
@@ -82,7 +85,8 @@ class TripTypeController extends Controller
             'icon' => $validated['icon'] ?? null,
             'description' => $validated['description'] ?? null,
             'image' => $tripType->image,
-            'status' => $request->boolean('status', true)
+            'status' => $request->boolean('status', true),
+            'is_featured' => $request->boolean('is_featured', false)
         ]);
 
         return response()->json([

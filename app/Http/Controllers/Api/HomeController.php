@@ -26,6 +26,7 @@ class HomeController extends Controller
                 'banners' => Banner::where('status',1)->get(),
 
                 'trip_types' => TripType::where('status',1)
+                    ->where('is_featured', 1)
                     ->orderBy('id')
                     ->get(),
 

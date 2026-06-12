@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Destination;
 use App\Models\TripType;
+use App\Models\Activity;
 use App\Models\PackageImage;
 use App\Models\Itinerary;
 use App\Models\PackageInclusion;
@@ -53,6 +54,14 @@ class Package extends Model
         return $this->belongsToMany(
             TripType::class,
             'package_trip_type'
+        );
+    }
+
+    public function activities()
+    {
+        return $this->belongsToMany(
+            Activity::class,
+            'package_activity'
         );
     }
 

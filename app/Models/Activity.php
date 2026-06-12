@@ -13,4 +13,11 @@ class Activity extends Model
         'image',
         'status'
     ];
+    public function packages()
+    {
+        return $this->belongsToMany(
+            Package::class,
+            'package_activity'
+        );
+    }
 }
